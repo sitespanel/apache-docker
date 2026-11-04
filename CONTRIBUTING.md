@@ -87,8 +87,7 @@ answer.
 ├── scripts/
 │   ├── a2enmod, a2dismod, a2enconf, a2disconf
 │   └── moddeps.sh              # shared prerequisite table, sourced by both
-├── cloudbuild.yaml             # Cloud Build: build, scan, SBOM, push with provenance
-├── cloudbuild-pr.yaml          # Cloud Build: pull-request build and scan, no push
+├── .github/workflows/image.yml   # GitHub Actions: lint, build, scan, push to ghcr.io, attest (BUILD.md)
 ├── MODULES.md                  # all 130 modules, with a verdict for each
 ├── README.md                   # GitHub README
 ```
