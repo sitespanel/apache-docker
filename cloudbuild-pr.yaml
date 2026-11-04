@@ -26,7 +26,7 @@ steps:
       - --label=org.opencontainers.image.source=https://github.com/sitespanel/apache-docker
       - --label=org.opencontainers.image.revision=$COMMIT_SHA
       - --label=dev.sitespanel.build.id=$BUILD_ID
-      - --label=org.opencontainers.image.description=SitesPanel Apache httpd (server and origin) image
+      - --label=org.opencontainers.image.description=SitesPanel Apache httpd images: a server and an origin variant behind a TLS proxy.
       - --tag=${_REGISTRY}/apache:$SHORT_SHA
       - --tag=${_REGISTRY}/apache:latest
       - .
@@ -54,7 +54,7 @@ steps:
       - --label=org.opencontainers.image.source=https://github.com/sitespanel/apache-docker
       - --label=org.opencontainers.image.revision=$COMMIT_SHA
       - --label=dev.sitespanel.build.id=$BUILD_ID
-      - --label=org.opencontainers.image.description=SitesPanel Apache httpd (server and origin) image
+      - --label=org.opencontainers.image.description=SitesPanel Apache httpd images: a server and an origin variant behind a TLS proxy.
       - --tag=${_REGISTRY}/apache:$SHORT_SHA-origin
       - --tag=${_REGISTRY}/apache:origin
       - .
