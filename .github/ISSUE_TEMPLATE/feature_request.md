@@ -11,8 +11,8 @@ assignees: ''
 
 **If it is a module: does enabling it at runtime already solve your problem?**
 <!--
-    docker run --rm morsalin1342/apache a2enmod --list      # is it already on?
-    docker run --rm morsalin1342/apache a2enmod <name>      # does this do the job?
+    docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod --list      # is it already on?
+    docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod <name>      # does this do the job?
 
 This image ships all 130 of Apache's modules and loads a chosen subset, so
 a2enmod works with no rebuild. If that is enough, you may not need a change here.
@@ -30,7 +30,7 @@ a2enmod works with no rebuild. If that is enough, you may not need a change here
 <!--
 Please measure — every number in MODULES.md was produced this way:
 
-    docker run -d --name m morsalin1342/apache sh -c 'a2enmod <name> && httpd-foreground'
+    docker run -d --name m europe-docker.pkg.dev/PROJECT/sitespanel-images/apache sh -c 'a2enmod <name> && httpd-foreground'
     sleep 3 && docker stats --no-stream m && docker logs m | grep warn
 
 A module that is free is an easy yes. mod_http2 costs +3.4 MiB idle, which is

@@ -6,14 +6,14 @@
 |---------|-----------|
 | 2.4.69  | :white_check_mark: |
 
-The version tracks upstream `httpd`. Older tags stay on Docker Hub for reproducibility but do
+The version tracks upstream `httpd`. Older tags stay in Artifact Registry for reproducibility but do
 not receive fixes — pull the current tag.
 
 ## Reporting a vulnerability
 
 **Please report privately**, using GitHub's private vulnerability reporting:
 
-- [Report a vulnerability](https://github.com/morsalin1342/apache-docker/security/advisories/new)
+- [Report a vulnerability](https://github.com/sitespanel/apache-docker/security/advisories/new)
 
 That keeps the details between us until there is a fix to ship. Please do not open a public
 issue for a security problem.

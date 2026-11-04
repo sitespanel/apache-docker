@@ -30,7 +30,6 @@ done
 - [ ] Neither logs a warning at startup
 - [ ] Module counts are stated in the PR, and any change to them is intentional
 - [ ] MODULES.md updated if a module's state changed — it documents all 130
-- [ ] `README.dockerhub*.md` regenerated if `README.md` changed (see CONTRIBUTING.md)
 - [ ] If `scripts/` changed: the full module sweep was re-run (enable each alone,
       config-test, start) — it is the only thing that catches a module which passes
       `httpd -t` and is broken at runtime

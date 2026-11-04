@@ -1,7 +1,7 @@
 # Apache: a static web server by default, a PHP application server on request.
 #
 # **This image contains no PHP.** PHP runs in its own container — the sibling
-# `morsalin1342/php` image, php-fpm listening on :9000 — and Apache reaches it
+# `europe-docker.pkg.dev/PROJECT/sitespanel-images/php` image, php-fpm listening on :9000 — and Apache reaches it
 # over FastCGI when you switch that on. That separation is the whole point: one
 # image is a web server, the other is a PHP runtime with 57 extensions and a
 # toolchain, and neither has to be rebuilt when the other moves.
@@ -118,7 +118,7 @@ ARG HTTPD_VERSION
 
 LABEL org.opencontainers.image.title="apache" \
       org.opencontainers.image.description="Apache behind a reverse proxy: php-fpm application server, no PHP and no TLS stack inside" \
-      org.opencontainers.image.source="https://github.com/morsalin1342/apache-docker" \
+      org.opencontainers.image.source="https://github.com/sitespanel/apache-docker" \
       org.opencontainers.image.licenses="MIT"
 
 # curl for the startup check below, and for anything that health-checks this

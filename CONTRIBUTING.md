@@ -19,8 +19,8 @@ rebuild.
 Check first whether you need the change at all:
 
 ```bash
-docker run --rm morsalin1342/apache a2enmod --list      # is it already enabled?
-docker run --rm morsalin1342/apache a2enmod <name>      # does enabling it at runtime do the job?
+docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod --list      # is it already enabled?
+docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod <name>      # does enabling it at runtime do the job?
 ```
 
 If it should be on by default, open an issue with the title `Module: <name>` and say:
@@ -32,7 +32,7 @@ If it should be on by default, open an issue with the title `Module: <name>` and
 3. **What it costs.** Measure it — the numbers in MODULES.md were produced this way:
 
    ```bash
-   docker run -d --name m morsalin1342/apache sh -c 'a2enmod <name> && httpd-foreground'
+   docker run -d --name m europe-docker.pkg.dev/PROJECT/sitespanel-images/apache sh -c 'a2enmod <name> && httpd-foreground'
    sleep 3 && docker stats --no-stream m && docker logs m | grep warn
    ```
 
@@ -47,9 +47,9 @@ a call, that file is the argument to engage with.
 Open an issue with the image tag, what you expected, and what happened. Useful output:
 
 ```bash
-docker run --rm morsalin1342/apache httpd -V     # build details
-docker run --rm morsalin1342/apache httpd -M     # what is loaded
-docker run --rm morsalin1342/apache a2enmod --list
+docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache httpd -V     # build details
+docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache httpd -M     # what is loaded
+docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod --list
 ```
 
 If Apache will not start, `docker logs` on the container is the thing to paste — the config
@@ -87,19 +87,15 @@ answer.
 ├── scripts/
 │   ├── a2enmod, a2dismod, a2enconf, a2disconf
 │   └── moddeps.sh              # shared prerequisite table, sourced by both
-├── .github/workflows/          # builds and pushes both tags
+├── cloudbuild.yaml             # Cloud Build: build, scan, SBOM, push with provenance
+├── cloudbuild-pr.yaml          # Cloud Build: pull-request build and scan, no push
 ├── MODULES.md                  # all 130 modules, with a verdict for each
 ├── README.md                   # GitHub README
-├── README.dockerhub.md         # Docker Hub description (personal)
-└── README.dockerhub-org.md     # Docker Hub description (org)
 ```
 
-`README.dockerhub*.md` are generated from `README.md` — regenerate rather than hand-edit:
 
 ```bash
 sed -e 's|\[MODULES.md\](MODULES.md)|MODULES.md in the GitHub repo|g' \
-    -e 's|\[LICENSE\](LICENSE)|the LICENSE file|' README.md > README.dockerhub.md
-cp README.dockerhub.md README.dockerhub-org.md
 ```
 
 ## Version upgrades

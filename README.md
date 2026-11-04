@@ -1,17 +1,14 @@
 # Apache Docker Image — static server, or php-fpm application server
 
-> **SitesPanel copy.** This repository is SitesPanel's copy of the image source. SitesPanel builds it with Google Cloud Build and serves it from Artifact Registry (`europe`); see [CLOUDBUILD.md](CLOUDBUILD.md). The Docker Hub publishing of the original repository does not run here.
+> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/apache`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/morsalin1342/apache.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/morsalin1342/apache)
-[![GitHub Stars](https://img.shields.io/github/stars/morsalin1342/apache-docker?style=for-the-badge&logo=github)](https://github.com/morsalin1342/apache-docker)
-[![License](https://img.shields.io/github/license/morsalin1342/apache-docker?style=for-the-badge)](https://github.com/morsalin1342/apache-docker/blob/master/LICENSE)
 
 Official Apache, configured. **Static files by default; PHP over FastCGI with one line.**
-There is no PHP in this image — it talks to [`morsalin1342/php`](https://hub.docker.com/r/morsalin1342/php)
+There is no PHP in this image — it talks to [`europe-docker.pkg.dev/PROJECT/sitespanel-images/php`](https://github.com/sitespanel/php-docker)
 running php-fpm in its own container.
 
 ```bash
-docker pull morsalin1342/apache:latest
+docker pull europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:latest
 ```
 
 ## Which tag
@@ -19,8 +16,8 @@ docker pull morsalin1342/apache:latest
 Two images, one Dockerfile, same 176 MB download. Pick by **where Apache sits**:
 
 ```yaml
-image: morsalin1342/apache:2.4.69           # Apache faces clients
-image: morsalin1342/apache:2.4.69-origin    # a reverse proxy / CDN / load balancer faces clients
+image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69           # Apache faces clients
+image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin    # a reverse proxy / CDN / load balancer faces clients
 ```
 
 | | main server | `-origin` |
@@ -64,7 +61,7 @@ compilation story: **nothing here is compiled, and Apache is never rebuilt.**
 ## Static, by default
 
 ```bash
-docker run -d -p 8080:80 -v "$PWD/site:/var/www/html" morsalin1342/apache
+docker run -d -p 8080:80 -v "$PWD/site:/var/www/html" europe-docker.pkg.dev/PROJECT/sitespanel-images/apache
 ```
 
 `.php` files are **refused with 403**, not served. That is the point: an image with no PHP
@@ -77,11 +74,11 @@ container returned the file contents with a 200.
 ```yaml
 services:
   php:
-    image: morsalin1342/php:8.4-fpm
+    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/php:8.4-fpm
     volumes: ["./src:/var/www/html"]
 
   apache:
-    image: morsalin1342/apache
+    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache
     depends_on: [php]
     volumes: ["./src:/var/www/html"]
     command: sh -c "a2enconf php-fpm && httpd-foreground"
@@ -162,10 +159,10 @@ On top of the official `httpd` image: `curl` (for health checks; the official im
 
 | Tag | Role |
 |---|---|
-| `morsalin1342/apache:2.4.69` | Apache is the main server |
-| `morsalin1342/apache:latest` | same, floating |
-| `morsalin1342/apache:2.4.69-origin` | Apache is behind a reverse proxy |
-| `morsalin1342/apache:origin` | same, floating |
+| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69` | Apache is the main server |
+| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:latest` | same, floating |
+| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin` | Apache is behind a reverse proxy |
+| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:origin` | same, floating |
 
 The version tracks upstream httpd; a new patch release is a one-line bump. The unsuffixed tags
 are deliberately the main-server image — someone typing `apache:latest` without reading this
@@ -174,14 +171,14 @@ should get the one that works when Apache is what clients reach.
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is published under `morsalin1342` (personal) and `easydigital` (organization), from the same build.
+Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
 
 | Repository | Images | Description |
 |---|---|---|
-| [caddy-docker](https://github.com/morsalin1342/caddy-docker) | `morsalin1342/caddy` · `easydigital/caddy` | Standalone Caddy with WAF, rate limiting & caching |
-| [frankenphp-docker](https://github.com/morsalin1342/frankenphp-docker) | `morsalin1342/frankenphp` · `easydigital/frankenphp` | Caddy + PHP app server in one container |
-| [php-docker](https://github.com/morsalin1342/php-docker) | `morsalin1342/php` · `easydigital/php` | Traditional PHP-FPM & CLI images |
-| [nginx-docker](https://github.com/morsalin1342/nginx-docker) | `morsalin1342/nginx` · `easydigital/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
+| [caddy-docker](https://github.com/sitespanel/caddy-docker) | `sitespanel-images/caddy` | Standalone Caddy with WAF, rate limiting & caching |
+| [frankenphp-docker](https://github.com/sitespanel/frankenphp-docker) | `sitespanel-images/frankenphp` | Caddy + PHP app server in one container |
+| [php-docker](https://github.com/sitespanel/php-docker) | `sitespanel-images/php` | Traditional PHP-FPM & CLI images |
+| [nginx-docker](https://github.com/sitespanel/nginx-docker) | `sitespanel-images/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
 <!-- END GENERATED: related -->
 
 ## Licence
