@@ -24,8 +24,8 @@ main-server list adds to, so nothing is in one tag and absent from the other by 
 Enumerated from the image itself, not from Apache's documentation index:
 
 ```bash
-docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache ls /usr/local/apache2/modules/   # 131 files, incl. httpd.exp
-docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache httpd -M                        # what is actually loaded
+docker run --rm ghcr.io/sitespanel/apache ls /usr/local/apache2/modules/   # 131 files, incl. httpd.exp
+docker run --rm ghcr.io/sitespanel/apache httpd -M                        # what is actually loaded
 ```
 
 Nothing below needs a rebuild. `a2enmod <name>` uncomments the `LoadModule` line httpd.conf
@@ -38,8 +38,8 @@ already carries, runs `httpd -t`, and rolls back if it fails.
 **Pick the tag that matches where Apache sits**, and the defaults are right as shipped:
 
 ```yaml
-image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69           # Apache faces clients
-image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin    # a reverse proxy faces clients
+image: ghcr.io/sitespanel/apache:2.4.69           # Apache faces clients
+image: ghcr.io/sitespanel/apache:2.4.69-origin    # a reverse proxy faces clients
 ```
 
 Neither needs modules added for the ordinary cases — static sites, PHP over FastCGI,
@@ -116,7 +116,7 @@ handshake, resumed ones included. The file supplies the directive, `a2enmod ssl`
 `socache_shmcb` provider, and the result is a clean start:
 
 ```console
-$ docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache sh -c 'a2enmod ssl >/dev/null && httpd-foreground'
+$ docker run --rm ghcr.io/sitespanel/apache sh -c 'a2enmod ssl >/dev/null && httpd-foreground'
 [mpm_event:notice] AH00489: Apache/2.4.69 (Unix) OpenSSL/3.5.7 configured -- resuming normal operations
 ```
 
@@ -327,12 +327,12 @@ the `authz_*` set) is exactly enough to put a password on a staging site.
 ## Enabling and disabling
 
 ```bash
-docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod --list       # every module and its state
-docker run --rm europe-docker.pkg.dev/PROJECT/sitespanel-images/apache a2enmod deflate      # try it, throw the container away
+docker run --rm ghcr.io/sitespanel/apache a2enmod --list       # every module and its state
+docker run --rm ghcr.io/sitespanel/apache a2enmod deflate      # try it, throw the container away
 ```
 
 ```dockerfile
-FROM europe-docker.pkg.dev/PROJECT/sitespanel-images/apache
+FROM ghcr.io/sitespanel/apache
 RUN a2enmod ssl socache_shmcb http2 \
  && a2dismod autoindex
 ```

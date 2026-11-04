@@ -1,14 +1,14 @@
 # Apache Docker Image — static server, or php-fpm application server
 
-> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/apache`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
+> **SitesPanel image source.** Google Cloud Build builds this image and publishes it to the GitHub Container Registry as `ghcr.io/sitespanel/apache`; see [CLOUDBUILD.md](CLOUDBUILD.md).
 
 
 Official Apache, configured. **Static files by default; PHP over FastCGI with one line.**
-There is no PHP in this image — it talks to [`europe-docker.pkg.dev/PROJECT/sitespanel-images/php`](https://github.com/sitespanel/php-docker)
+There is no PHP in this image — it talks to [`ghcr.io/sitespanel/php`](https://github.com/sitespanel/php-docker)
 running php-fpm in its own container.
 
 ```bash
-docker pull europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:latest
+docker pull ghcr.io/sitespanel/apache:latest
 ```
 
 ## Which tag
@@ -16,8 +16,8 @@ docker pull europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:latest
 Two images, one Dockerfile, same 176 MB download. Pick by **where Apache sits**:
 
 ```yaml
-image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69           # Apache faces clients
-image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin    # a reverse proxy / CDN / load balancer faces clients
+image: ghcr.io/sitespanel/apache:2.4.69           # Apache faces clients
+image: ghcr.io/sitespanel/apache:2.4.69-origin    # a reverse proxy / CDN / load balancer faces clients
 ```
 
 | | main server | `-origin` |
@@ -61,7 +61,7 @@ compilation story: **nothing here is compiled, and Apache is never rebuilt.**
 ## Static, by default
 
 ```bash
-docker run -d -p 8080:80 -v "$PWD/site:/var/www/html" europe-docker.pkg.dev/PROJECT/sitespanel-images/apache
+docker run -d -p 8080:80 -v "$PWD/site:/var/www/html" ghcr.io/sitespanel/apache
 ```
 
 `.php` files are **refused with 403**, not served. That is the point: an image with no PHP
@@ -74,11 +74,11 @@ container returned the file contents with a 200.
 ```yaml
 services:
   php:
-    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/php:8.4-fpm
+    image: ghcr.io/sitespanel/php:8.4-fpm
     volumes: ["./src:/var/www/html"]
 
   apache:
-    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/apache
+    image: ghcr.io/sitespanel/apache
     depends_on: [php]
     volumes: ["./src:/var/www/html"]
     command: sh -c "a2enconf php-fpm && httpd-foreground"
@@ -159,10 +159,10 @@ On top of the official `httpd` image: `curl` (for health checks; the official im
 
 | Tag | Role |
 |---|---|
-| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69` | Apache is the main server |
-| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:latest` | same, floating |
-| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin` | Apache is behind a reverse proxy |
-| `europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:origin` | same, floating |
+| `ghcr.io/sitespanel/apache:2.4.69` | Apache is the main server |
+| `ghcr.io/sitespanel/apache:latest` | same, floating |
+| `ghcr.io/sitespanel/apache:2.4.69-origin` | Apache is behind a reverse proxy |
+| `ghcr.io/sitespanel/apache:origin` | same, floating |
 
 The version tracks upstream httpd; a new patch release is a one-line bump. The unsuffixed tags
 are deliberately the main-server image — someone typing `apache:latest` without reading this
@@ -171,7 +171,7 @@ should get the one that works when Apache is what clients reach.
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
+Every image is built by Google Cloud Build and published to the GitHub Container Registry (`ghcr.io/sitespanel`), with an SBOM attached to each image.
 
 | Repository | Images | Description |
 |---|---|---|

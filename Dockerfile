@@ -1,7 +1,7 @@
 # Apache: a static web server by default, a PHP application server on request.
 #
 # **This image contains no PHP.** PHP runs in its own container — the sibling
-# `europe-docker.pkg.dev/PROJECT/sitespanel-images/php` image, php-fpm listening on :9000 — and Apache reaches it
+# `ghcr.io/sitespanel/php` image, php-fpm listening on :9000 — and Apache reaches it
 # over FastCGI when you switch that on. That separation is the whole point: one
 # image is a web server, the other is a PHP runtime with 57 extensions and a
 # toolchain, and neither has to be rebuilt when the other moves.

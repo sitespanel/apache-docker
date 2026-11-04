@@ -6,7 +6,7 @@
 |---------|-----------|
 | 2.4.69  | :white_check_mark: |
 
-The version tracks upstream `httpd`. Older tags stay in Artifact Registry for reproducibility but do
+The version tracks upstream `httpd`. Older tags stay in the registry for reproducibility but do
 not receive fixes — pull the current tag.
 
 ## Reporting a vulnerability

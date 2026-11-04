@@ -4,12 +4,12 @@
 # conf/php-fpm.conf about why that is not optional.
 services:
   php:
-    image: ${SITESPANEL_REGISTRY:-europe-docker.pkg.dev/PROJECT/sitespanel-images}/php:8.4-fpm
+    image: ${SITESPANEL_REGISTRY:-ghcr.io/sitespanel}/php:8.4-fpm
     volumes:
       - ./src:/var/www/html
 
   apache:
-    image: ${SITESPANEL_REGISTRY:-europe-docker.pkg.dev/PROJECT/sitespanel-images}/apache:latest
+    image: ${SITESPANEL_REGISTRY:-ghcr.io/sitespanel}/apache:latest
     depends_on:
       - php
     volumes:

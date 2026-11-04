@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 **Image tag(s) affected**
-<!-- e.g. europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69 or europe-docker.pkg.dev/PROJECT/sitespanel-images/apache:2.4.69-origin.
+<!-- e.g. ghcr.io/sitespanel/apache:2.4.69 or ghcr.io/sitespanel/apache:2.4.69-origin.
      The two tags load different module sets, so please say which. -->
 
 **Describe the bug**
