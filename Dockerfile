@@ -128,12 +128,13 @@ LABEL org.opencontainers.image.title="apache" \
 #
 # libbrotli1 (and libexpat1, if present) are upgraded to Debian's security
 # releases (libbrotli1 1.1.0-2+deb13u1; a high CVE in the version the official
-# base image still ships, 2026-10-27). Drop the line when the base image carries
-# them.
+# base image still ships, 2026-10-27). zlib1g (1:1.3.dfsg+really1.3.1-1+deb13u1) is
+# upgraded the same way (a high CVE found by the image manifest's scan, 2026-11-08).
+# Drop the line when the base image carries them.
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends acl curl; \
-    apt-get install -y --no-install-recommends --only-upgrade libexpat1 libbrotli1; \
+    apt-get install -y --no-install-recommends --only-upgrade libexpat1 libbrotli1 zlib1g; \
     rm -rf /var/lib/apt/lists/*
 
 # a2enmod, a2dismod, a2enconf, a2disconf.
