@@ -77,12 +77,12 @@
 #
 # # Two tags, because the two roles want different modules
 #
-#   apache:2.4.69           Apache is the main server, facing clients.
+#   apache:2.4.71           Apache is the main server, facing clients.
 #   apache:latest           TLS, HTTP/2, brotli, rate limiting, ACME, and the
 #                           proxy backends a front server reaches for.
 #                           46 modules. ~16 MiB idle.
 #
-#   apache:2.4.69-origin    Apache is behind a reverse proxy — the "origin" in
+#   apache:2.4.71-origin    Apache is behind a reverse proxy — the "origin" in
 #                           edge/origin terms. No TLS stack at all: the proxy
 #                           terminates it. 33 modules. ~7 MiB idle.
 #
@@ -98,12 +98,12 @@
 # What is excluded from *both*, and why, is in MODULES.md — which documents all
 # 130 modules the image ships, with a recommendation for each.
 
-ARG HTTPD_VERSION=2.4.69
+ARG HTTPD_VERSION=2.4.71
 ARG DEBIAN_RELEASE=trixie
 
 # The Debian-tagged image, not the bare version tag.
 #
-# `httpd:2.4.69` and `httpd:2.4.69-trixie` are the same image today, and that is
+# `httpd:2.4.71` and `httpd:2.4.71-trixie` are the same image today, and that is
 # exactly why the suffix is written down: the unsuffixed tag follows whatever
 # Debian release upstream considers current, so it moves to the next one without
 # this file changing. An image whose base distribution changed underneath a
