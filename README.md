@@ -18,8 +18,8 @@ docker pull ghcr.io/sitespanel/apache:latest
 Two images, one Dockerfile, same 176 MB download. Pick by **where Apache sits**:
 
 ```yaml
-image: ghcr.io/sitespanel/apache:2.4.69           # Apache faces clients
-image: ghcr.io/sitespanel/apache:2.4.69-origin    # a reverse proxy / CDN / load balancer faces clients
+image: ghcr.io/sitespanel/apache:2.4.71           # Apache faces clients
+image: ghcr.io/sitespanel/apache:2.4.71-origin    # a reverse proxy / CDN / load balancer faces clients
 ```
 
 | | main server | `-origin` |
@@ -155,15 +155,15 @@ broken for a whole release with every build still green.
 
 ## Tools in the image
 
-On top of the official `httpd` image: `curl` (for health checks; the official image has no HTTP client) and `acl` (`setfacl`, `getfacl`, so an entrypoint can give a user access to a directory without changing its owner). The base is `httpd:2.4.69` on Debian trixie.
+On top of the official `httpd` image: `curl` (for health checks; the official image has no HTTP client) and `acl` (`setfacl`, `getfacl`, so an entrypoint can give a user access to a directory without changing its owner). The base is `httpd:2.4.71` on Debian trixie.
 
 ## Tags
 
 | Tag | Role |
 |---|---|
-| `ghcr.io/sitespanel/apache:2.4.69` | Apache is the main server |
+| `ghcr.io/sitespanel/apache:2.4.71` | Apache is the main server |
 | `ghcr.io/sitespanel/apache:latest` | same, floating |
-| `ghcr.io/sitespanel/apache:2.4.69-origin` | Apache is behind a reverse proxy |
+| `ghcr.io/sitespanel/apache:2.4.71-origin` | Apache is behind a reverse proxy |
 | `ghcr.io/sitespanel/apache:origin` | same, floating |
 
 The version tracks upstream httpd; a new patch release is a one-line bump. The unsuffixed tags
