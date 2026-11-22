@@ -299,6 +299,14 @@ RUN a2enmod ssl http2 brotli ratelimit md \
             proxy_wstunnel proxy_uwsgi proxy_balancer lbmethod_byrequests \
             vhost_alias macro
 
+# This tag faces clients itself, so no proxy sits in front of it and no
+# X-Forwarded-For header is believed. The origin stage trusts the private
+# ranges because its proxy is on them; here a client on such a range (a LAN, a
+# Docker network, Docker's own userland proxy) could set the header and appear
+# to come from any address it likes, defeating rate limits and audit logs.
+RUN sed -i -e '/^RemoteIPHeader /d' -e '/^RemoteIPTrustedProxy /d' /usr/local/apache2/conf/extra/app-server.conf; \
+    ! grep -q '^RemoteIP' /usr/local/apache2/conf/extra/app-server.conf
+
 # Start it for real, exactly as the origin stage does.
 #
 # The config test does not run a module's initialisation, and this stage loads
