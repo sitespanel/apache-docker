@@ -58,7 +58,7 @@ answer.
 
 ### Open a pull request
 
-1. Fork, and branch from `master`
+1. Fork, and branch from `main`
 2. Build **both** targets — they are not the same image:
 
    ```bash
@@ -73,7 +73,7 @@ answer.
 4. If you touched `scripts/`, sweep every module — enable each one alone, config-test it, and
    start it. That sweep is how the dependency table in `scripts/moddeps.sh` was built, and it
    is the only thing that catches a module which passes `httpd -t` and is broken at runtime.
-5. Open the PR against `master`
+5. Open the PR against `main`
 
 ## Project structure
 
