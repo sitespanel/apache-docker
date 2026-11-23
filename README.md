@@ -185,4 +185,5 @@ Every image is built by GitHub Actions and published to the GitHub Container Reg
 
 ## Licence
 
-MIT — see [LICENSE](LICENSE).
+MIT for this repository's build files ([LICENSE](LICENSE)). The image packages the Apache HTTP Server, which is under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), and Debian packages under their own licences (`/usr/share/doc/*/copyright` in the image).
+
