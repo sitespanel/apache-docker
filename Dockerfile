@@ -126,15 +126,16 @@ LABEL org.opencontainers.image.title="apache" \
 # getfacl) lets an entrypoint grant a user access to a directory without
 # changing its owner.
 #
-# libbrotli1 (and libexpat1, if present) are upgraded to Debian's security
-# releases (libbrotli1 1.1.0-2+deb13u1; a high CVE in the version the official
-# base image still ships, 2026-10-27). zlib1g (1:1.3.dfsg+really1.3.1-1+deb13u1) is
-# upgraded the same way (a high CVE found by the image manifest's scan, 2026-11-08).
-# Drop the line when the base image carries them.
+# Every Debian security fix released after the official base image was built is
+# applied first (`apt-get upgrade`), so the image does not wait for the next
+# upstream rebuild. Naming the packages one by one (libbrotli1, libexpat1, zlib1g
+# before) missed the next ones: krb5 and others on 2026-11-23, which the scan's
+# HIGH gate stopped. The weekly rebuild skips the cache, so it picks up new fixes.
+# hadolint ignore=DL3005
 RUN set -eux; \
     apt-get update; \
+    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --no-install-recommends; \
     apt-get install -y --no-install-recommends acl curl; \
-    apt-get install -y --no-install-recommends --only-upgrade libexpat1 libbrotli1 zlib1g; \
     rm -rf /var/lib/apt/lists/*
 
 # a2enmod, a2dismod, a2enconf, a2disconf.
