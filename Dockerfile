@@ -119,7 +119,7 @@ ARG HTTPD_VERSION
 LABEL org.opencontainers.image.title="apache" \
       org.opencontainers.image.description="Apache behind a reverse proxy: php-fpm application server, no PHP and no TLS stack inside" \
       org.opencontainers.image.source="https://github.com/sitespanel/apache-docker" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.licenses="Apache-2.0"
 
 # curl for the startup check below, and for anything that health-checks this
 # container. The official image has no HTTP client at all. `acl` (setfacl,
