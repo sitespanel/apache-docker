@@ -1,0 +1,2 @@
+# ARG source (see .github/upstream-check.py)
+HTTPD_VERSION dockerhub:library/httpd:2.4.:-trixie
